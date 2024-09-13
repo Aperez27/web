@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil Personal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenidos a mi perfil</h1>
+    </header>
+    
+    <section class="profile">
+        <h2>Información Básica</h2>
+        <p><strong>Nombre:</strong> Antony Daniel Perez Badillo</p>
+        <p><strong>Edad:</strong> 21 años</p>
+        <p><strong>Intereses:</strong> Programación, lectura, videojuegos, deportes</p>
+        <p><strong>Pasatiempos:</strong> Correr, jugar fútbol, tocar la guitarra</p>
+        <p><strong>Comida Favorita:</strong> Pizza</p>
+        <p><strong>Color Favorito:</strong> Azul</p>
+    </section>
+
+    <section class="fun-facts">
+        <h2>Hechos Curiosos Sobre Mí</h2>
+        <p>Soy un amante de la ciencia ficción y me fascina la astronomía.</p>
+        <p>Me gusta mucho la aventura.</p>
+        <p>Tengo un superpoder secreto: ¡Nunca me pierdo cuando cocino!</p>
+    </section>
+
+    <section class="interactive">
+        <h2>Mi Cita Favorita</h2>
+        <blockquote>"El único modo de hacer un gran trabajo es amar lo que haces." - Steve Jobs</blockquote>
+
+        <h2>Mi Lema de Vida</h2>
+        <p>Siempre hacia adelante, nunca hacia atrás.</p>
+
+        <div class="buttons">
+            <button id="likeButton" onclick="like()">❤️ Me encanta <span id="likeCount">0</span></button>
+        </div>
+
+        <div class="comment-section">
+            <h2>Comentarios</h2>
+            <textarea id="commentInput" placeholder="Deja un comentario"></textarea>
+            <button onclick="addComment()">Enviar</button>
+            <div id="commentList"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Gracias por visitar mi perfil</p>
+    </footer>
+
+    <script>
+        // Cargar el número de "Me gusta" almacenado en LocalStorage
+        document.addEventListener("DOMContentLoaded", function() {
+            if (localStorage.getItem("likeCount")) {
+                likeCount = parseInt(localStorage.getItem("likeCount"));
+                document.getElementById("likeCount").innerText = likeCount;
+            }
+        });
+
+        let likeCount = parseInt(localStorage.getItem("likeCount")) || 0;
+
+        function like() {
+            likeCount++;
+            document.getElementById("likeCount").innerText = likeCount;
+            // Guardar el número de "Me gusta" en LocalStorage
+            localStorage.setItem("likeCount", likeCount);
+        }
+
+        function addComment() {
+            const commentInput = document.getElementById("commentInput").value;
+            if (commentInput) {
+                const commentList = document.getElementById("commentList");
+                const newComment = document.createElement("p");
+                newComment.innerText = commentInput;
+                commentList.appendChild(newComment);
+                document.getElementById("commentInput").value = '';
+            }
+        }
+    </script>
+</body>
+</html>
