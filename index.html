@@ -13,6 +13,8 @@
     
     <section class="profile">
         <h2>Información Básica</h2>
+        <!-- Imagen de perfil -->
+        <img src="image.png" alt="Foto de perfil" class="profile-pic">
         <p><strong>Nombre:</strong> Antony Daniel Perez Badillo</p>
         <p><strong>Edad:</strong> 21 años</p>
         <p><strong>Intereses:</strong> Programación, lectura, videojuegos, deportes</p>
@@ -52,11 +54,20 @@
     </footer>
 
     <script>
-        // Cargar el número de "Me gusta" almacenado en LocalStorage
         document.addEventListener("DOMContentLoaded", function() {
             if (localStorage.getItem("likeCount")) {
                 likeCount = parseInt(localStorage.getItem("likeCount"));
                 document.getElementById("likeCount").innerText = likeCount;
+            }
+
+            if (localStorage.getItem("comments")) {
+                const comments = JSON.parse(localStorage.getItem("comments"));
+                const commentList = document.getElementById("commentList");
+                comments.forEach(comment => {
+                    const newComment = document.createElement("p");
+                    newComment.innerText = comment;
+                    commentList.appendChild(newComment);
+                });
             }
         });
 
@@ -65,7 +76,6 @@
         function like() {
             likeCount++;
             document.getElementById("likeCount").innerText = likeCount;
-            // Guardar el número de "Me gusta" en LocalStorage
             localStorage.setItem("likeCount", likeCount);
         }
 
@@ -76,6 +86,11 @@
                 const newComment = document.createElement("p");
                 newComment.innerText = commentInput;
                 commentList.appendChild(newComment);
+
+                let comments = JSON.parse(localStorage.getItem("comments")) || [];
+                comments.push(commentInput);
+                localStorage.setItem("comments", JSON.stringify(comments));
+
                 document.getElementById("commentInput").value = '';
             }
         }
